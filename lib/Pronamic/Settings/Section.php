@@ -45,10 +45,28 @@ class Pronamic_Settings_Section {
      */
     private $_fields_ids = array();
     
-    public function __construct( $id, $title, $page_slug ) {
+    public function __construct( $id, $title = null, $page_slug = null ) {
         $this->_id          = $id;
         $this->_title       = $title;
         $this->_page_slug   = $page_slug;
+    }
+    
+    public function set_title( $title ) {
+        $this->_title = $title;
+        return $this;
+    }
+    
+    public function get_title() {
+        return $this->_title;
+    }
+    
+    public function set_page( $page_slug ) {
+        $this->_page_slug = $page_slug;
+        return $this;
+    }
+    
+    public function get_page() {
+        return $this->_page_slug;
     }
     
     public function set_details( $details ) {
