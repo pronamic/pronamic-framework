@@ -1,4 +1,4 @@
-# Pronamic Plugin Framework
+# Pronamic Framework
 
 ---
 
