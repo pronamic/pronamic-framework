@@ -138,4 +138,22 @@ class Pronamic_Settings_Renderer {
             }
         }
     }
+    
+    public function password( $args ) {
+        echo Pronamic_Helper_Html::password( 
+            $args['label_for'], 
+            $args['label_for'], 
+            null, 
+            array('regular-text', 'code') 
+        );
+    }
+    
+    public function hidden( $args ) {
+        echo Pronamic_Helper_Html::hidden( 
+            $args['label_for'], 
+            $args['label_for'], 
+            get_option( $args['label_for'] ), 
+            array('regular-text', 'code') 
+        );
+    }
 }
