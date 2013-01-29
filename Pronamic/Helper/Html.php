@@ -111,4 +111,22 @@ class Pronamic_Helper_Html {
 
         return $input;
     }
+    
+    public static function password( $name, $id, $value, $classes = array() ) {
+        $input  = "<input type='password' name='";
+        $input .= esc_attr( $name );
+        $input .="' id='";
+        $input .= esc_attr( $id );
+        $input .="' value='";
+        $input .= esc_attr( $value );
+        $input .="'";
+
+        if ( ! empty( $classes ) ) {
+            $input .= ' class="' . implode(' ', $classes ) . '"';
+        }
+
+        $input .= '>';
+
+        return $input;
+    }
 }
