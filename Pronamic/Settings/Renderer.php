@@ -23,38 +23,75 @@ class Pronamic_Settings_Renderer {
     }
 
     public function textarea( $args ) {
-        printf(
-            '<textarea name="%s" id="%s" class="%s">%s</textarea>',
-            esc_attr( $args['label_for'] ),
-            esc_attr( $args['label_for'] ),
-            'regular-text code',
-            esc_attr( get_option( $args['label_for'] ) )
+
+        echo Pronamic_Helper_Html::textarea(
+            $args['label_for'],
+            $args['label_for'],
+            get_option( $args['label_for'] ),
+            array( 'regular-text', 'code' )
         );
     }
 
     public function editor( $args )
     {
-        wp_editor( get_option( $args['label_for'] ), $args['label_for'] );
+        wp_editor( 
+            get_option( $args['label_for'] ), 
+            $args['label_for'] 
+        );
     }
 
-    public function uploader( $args )
+    public function upload( $args )
     {
         wp_enqueue_media();
 
-        $string =   '<div class="uploader">' .
-                        '<input type="text" name="%s" id="%s" value="%s" class="widefat"/>' .
-                        '<input type="button" class="button button-secondary jMediaUploader" name="%s_button" id="%s_button" value="%s" />' .
-                    '</div>';
-
-        printf(
-            $string,
-            esc_attr( $args['label_for'] ),
-            esc_attr( $args['label_for'] ),
+        $input_text = Pronamic_Helper_Html::text(
+            $args['label_for'],
+            $args['label_for'],
             get_option( $args['label_for'] ),
-            esc_attr( $args['label_for'] ),
-            esc_attr( $args['label_for'] ),
-            __( 'Upload' )
+            array( 'widefat' )
         );
+
+        $input_button = Pronamic_Helper_Html::button(
+            $args['label_for'] . '_button',
+            $args['label_for'] . '_button',
+            __( 'Upload' ),
+            array( 'button', 'button-secondary', 'jMediaUploader' )
+        );
+
+        echo "<div class='uploader'>";
+        echo $input_text;
+        echo $input_button;
+        echo "</div>";
+
+        echo "
+            <script type='text/javascript'>
+                jQuery(document).ready(function($){
+                    var PF_Upload = {
+                        button: '',
+                        ready: function() {
+                            PF_Upload.button = $('.jMediaUploader');
+                            PF_Upload.binds();
+                        },
+                        binds: function() {
+                            PF_Upload.button.click(PF_Upload.do_upload);
+                        },
+                        do_upload: function(e) {
+                            e.preventDefault();
+                            var self = $(this),
+                                input = self.attr('id').replace('_button', '');
+
+                            wp.media.editor.send.attachment = function(props, attachment) {
+                                $('#' + input).val(attachment.url);
+                            };
+
+                            wp.media.editor.open(self);
+                        }
+                    };
+
+                    PF_Upload.ready();
+                });
+            </script>
+        ";
     }
 
     public function colorpicker( $args )
