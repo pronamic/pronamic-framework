@@ -96,12 +96,34 @@ class Pronamic_Settings_Renderer {
 
     public function colorpicker( $args )
     {
+        wp_enqueue_script( 'wp-color-picker');
         wp_enqueue_style( 'wp-color-picker' );
 
-        printf(
-            '<input type="text" class="jColorPicker" name="%s" value="%s"/>',
-            esc_attr( $args['label_for'] ),
-            get_option( $args['label_for'] )
+        echo Pronamic_Helper_Html::text(
+            $args['label_for'],
+            $args['label_for'],
+            get_option( $args['label_for'] ),
+            array( 'jColorPicker' )
         );
+
+        echo "
+            <script type='text/javascript'>
+                jQuery(document).ready(function($){
+                    var PF_ColorPicker = {
+                        element:'',
+                        ready: function() {
+                            PF_ColorPicker.element = $('.jColorPicker');
+
+                            PF_ColorPicker.binds();
+                        },
+                        binds: function() {
+                            PF_ColorPicker.element.wpColorPicker();
+                        }
+                    };
+
+                    PF_ColorPicker.ready();
+                });
+            </script>
+        ";
     }
 }
