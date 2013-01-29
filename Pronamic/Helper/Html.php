@@ -98,4 +98,17 @@ class Pronamic_Helper_Html {
         
         return $input;
     }
+    
+    public static function hidden( $name, $id, $value ) {
+        $input  = "<input type='hidden' name='";
+        $input .= esc_attr( $name );
+        $input .="' id='";
+        $input .= esc_attr( $id );
+        $input .="' value='";
+        $input .= esc_attr( $value );
+        $input .="'";
+        $input .= '>';
+
+        return $input;
+    }
 }
