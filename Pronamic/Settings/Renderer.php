@@ -32,16 +32,14 @@ class Pronamic_Settings_Renderer {
         );
     }
 
-    public function editor( $args )
-    {
+    public function editor( $args ) {
         wp_editor( 
             get_option( $args['label_for'] ), 
             $args['label_for'] 
         );
     }
 
-    public function upload( $args )
-    {
+    public function upload( $args ) {
         wp_enqueue_media();
 
         $input_text = Pronamic_Helper_Html::text(
@@ -94,8 +92,7 @@ class Pronamic_Settings_Renderer {
         ";
     }
 
-    public function colorpicker( $args )
-    {
+    public function colorpicker( $args ) {
         wp_enqueue_script( 'wp-color-picker');
         wp_enqueue_style( 'wp-color-picker' );
 
@@ -125,5 +122,20 @@ class Pronamic_Settings_Renderer {
                 });
             </script>
         ";
+    }
+    
+    public function radio( $args ) {
+        
+        $values = array();
+        if ( ! empty( $args['values'] ) ) {
+            foreach( $args['values'] as $value ) {
+                echo Pronamic_Helper_Html::radio(
+                    $args['label_for'],
+                    $args['label_for'],
+                    $value,
+                    get_option( $args['label_for'] )
+                );
+            }
+        }
     }
 }
