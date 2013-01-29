@@ -3,32 +3,23 @@
 class Pronamic_Settings_Renderer {
 
     public function text( $args ) {
-        printf(
-            '<input name="%s" id="%s" type="text" value="%s" class="%s" />',
-            esc_attr( $args['label_for'] ),
-            esc_attr( $args['label_for'] ),
-            esc_attr( get_option( $args['label_for'] ) ),
-            'regular-text code'
+
+        echo Pronamic_Helper_Html::text( 
+            $args['label_for'], 
+            $args['label_for'], 
+            get_option( $args['label_for'] ), 
+            array('regular-text', 'code') 
         );
     }
 
     public function select( $args ) {
-        $chosen = get_option( $args['label_for'] );
-
-        $html = "<select name='{$args['label_for']}'>";
-
-        foreach ( $args['options'] as $option ) {
-            if ( $chosen == $option['value'] ) {
-                $html .= "<option value='{$option['value']}' selected='selected'>{$option['label_for']}</option>";
-            }
-            else {
-                $html .= "<option value='{$option['value']}'>{$option['label_for']}</option>";
-            }
-        }
-
-        $html .= '</select>';
-
-        echo $html;
+        
+        echo Pronamic_Helper_Html::select(
+            $args['label_for'],
+            $args['label_for'],
+            get_option( $args['label_for'] ),
+            $args['options']
+        );
     }
 
     public function textarea( $args ) {
