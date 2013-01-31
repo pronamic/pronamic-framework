@@ -34,14 +34,14 @@ class Pronamic_Helper_Html {
 
         $input .= '>';
 
-        foreach ( $options as $option ) {
-            $input .= "<option value='" . esc_attr( $option['value'] ) . "'";
+        foreach ( $options as $name => $v ) {
+            $input .= "<option value='" . esc_attr( $v ) . "'";
              
-            if ( $value == $option['value'] ) 
+            if ( $value == $v ) 
                 $input .= 'selected="selected"';
             
             $input .= '>';
-            $input .= esc_attr( $option['text'] );
+            $input .= esc_attr( $name );
             $input .= '</option>';
         }
 
