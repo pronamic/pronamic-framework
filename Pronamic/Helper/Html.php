@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Component Version: 1.0
+ * Class Version: 1.0
+ */
 class Pronamic_Helper_Html {
     public static function text( $name, $id, $value, $classes = array() ) {
 

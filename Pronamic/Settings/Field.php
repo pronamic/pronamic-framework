@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Component Version: 1.0
+ * Class Version: 1.0
+ */
 class Pronamic_Settings_Field {
     
     private $_id;
