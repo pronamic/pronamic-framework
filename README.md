@@ -6,6 +6,7 @@
 
 - Pronamic/Base
 - Pronamic/Settings
+- Pronamic/Helper
 
 ## Pronamic/Base
 ### Pronamic_Base_Autoload (formerly Pronamic_Autoload)
@@ -17,9 +18,6 @@ The autoloader class has been written.  It is now a slightly more complex class 
 You require a check to determine if the class exists due to any other existing plugin or theme that may be using pronamic-framework.  A simple statement to include the Pronamic_Base_Autoload from your local plugin/themes pronamic-framework copy is all that is required.
 
 ```php
-
-<?php
-    
     if ( ! class_exists( 'Pronamic_Base_Autoload' ) )
         include( 'pronamic-framework/Pronamic/Base/Autoload.php' );
 
@@ -30,8 +28,6 @@ The Pronamic_Base_Autoload is a Singleton object, as it seemed the easiest metho
 So to start, retrieving the instance of the autoloader is required
 
 ```php
-<?php
-
     $autoload = Pronamic_Base_Autoload::get_instance();
 ```
 
@@ -39,8 +35,6 @@ So to start, retrieving the instance of the autoloader is required
 Pronamic_Base_Autoload allows you to specify which components you wish to use from the pronamic-framework.
 
 ```php
-<?php
-
     $autoload->register_components( array( 
         "Pronamic\\Base" => __DIR__ . '/pronamic-framework'
     ) );
@@ -48,8 +42,6 @@ Pronamic_Base_Autoload allows you to specify which components you wish to use fr
 This is the registration of all components inside the pronamic-framework\Pronamic\Base folder.  You could, for easier sake, just reference the entire Pronamic folder if you want everything from the pronamic-framework.
 
 ```php
-<?php
-
     $autoload->register_components( array(
         "Pronamic" => __DIR__ . '/pronamic-framework'
     ) );
@@ -59,10 +51,8 @@ This is the registration of all components inside the pronamic-framework\Pronami
 Pronamic_Base_Autoload allows you to also specify exact classes you want.  This could be useful for overiding a component class, or classes from another project that you dont want to keep inside your plugins/themes library folder.
 
 ```php
-<?php
-
     $autoload->register_classes( array(
-        "Pronamic_Base_View => __DIR__ . '/location/to/file.php'
+        "Pronamic_Base_View" => __DIR__ . '/location/to/file.php'
     ) );
 ```
 The reference must include the extension.
@@ -71,8 +61,6 @@ The reference must include the extension.
 Pronamic_Base_Autoload allows you to specify folders for other classes.  This can be useful for your own plugin or themes class files.  The naming convention is the PEAR convention, so Underscores represent folders.
 
 ```php
-<?php
-
     $autoload->register_folders( array( 
         __DIR__ . '/lib'
     ) );
@@ -93,8 +81,6 @@ The Viewloader, is a class to simplify loading views for the many callback metho
 #### Simple Usage:
 
 ```php
-<?php
-
     $view = new Pronamic_View( dirname( __FILE__ ) . '/views' );
     $view
         ->set_view( 'name_of_view_file' )
@@ -115,20 +101,13 @@ _Note: You could overide this class now with your own Renderer with the autoload
 #### Usage:
 
 ```php
-<?php
-
-    // Define a renderer
     $settings_renderer = new Pronamic_Settings_Renderer();
-
 ```
 
 ### Pronamic_Settings_Section
 The section is your collection of settings under a common title/name (see add_settings_section )
 #### Usage:
 ```php
-<?php
-
-    // A new section
     $base_section = new Pronamic_Settings_Section( 'ppf_settings_base' );
     $base_section
         ->set_title( 'Pronamic Settings Base Section' )
@@ -140,9 +119,6 @@ The section is your collection of settings under a common title/name (see add_se
 The field is the actual input shown, and which will be associated with a section
 #### Usage:
 ```php
-<?php
-
-    // Extra Title Field
     $extra_title = new Pronamic_Settings_Field( 'ppf_extra_title' );
     $extra_title
         ->set_title( 'PPF Extra Title' )
@@ -154,9 +130,6 @@ Once all settings have been defined, and you are ready to register and show thos
 #### Show and Register
 
 ```php
-<?php
-
-    // Register these settings
     $base_section
         ->set_field_renderer( $settings_renderer )
         ->add_field( $extra_title )
@@ -179,21 +152,20 @@ At the moment it supports the following:
 
 #### Pronamic_Helper_Html::text()
 ```php
-<?php
-
     echo Pronamic_Helper_Html::text( 'inputname', 'inputid', 'value', [ 'class1', 'class2' ] );
+    echo Pronamic_Helper_Html::hidden( 'inputname', 'inputid', 'value', [ 'class1', 'class2' ] );
+    echo Pronamic_Helper_Html::password( 'inputname', 'inputid', 'value', [ 'class1', 'class2' ] );
 ```
 ```html
     <input type="text" name="inputname" id="inputid" value="value" class="class1 class2" />
+    <input type="hidden" name="inputname" id="inputid" value="value" class="class1 class2" />
+    <input type="password" name="inputname" id="inputid" value="value" class="class1 class2" />
 ```
 
 #### Pronamic_Helper_Html::select()
 
 ```php
-<?php
-
     echo Pronamic_Helper_Html::select( 'selectname', 'selectid', '1', ['Yes' => 1, 'No' => 0], ['class1', 'class2'] );
-    
 ```
 
 ```html
