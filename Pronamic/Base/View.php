@@ -4,7 +4,7 @@
  * Component Version: 1.0
  * Class Version: 1.0
  */
-class Pronamic_View
+class Pronamic_Base_View
 {
     /**
      * Full root location to folder that holds this
